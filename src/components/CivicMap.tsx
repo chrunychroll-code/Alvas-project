@@ -72,10 +72,10 @@ export const CivicMap: React.FC<CivicMapProps> = ({
       L.control.zoom({ position: 'bottomright' }).addTo(map);
 
       // Clean, high-performance OpenStreetMap / CartoDB Voyager tiles
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://carto.com/">CARTO</a>, &copy; OpenStreetMap contributors',
+      // OpenStreetMap tiles — no CARTO API key required
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19,
-        subdomains: 'abcd',
       }).addTo(map);
 
       // Create layers
@@ -284,11 +284,10 @@ export const CivicMap: React.FC<CivicMapProps> = ({
         </div>
 
         {/* Engine Status Banner */}
-        <div className={`px-2.5 py-1.5 rounded-lg text-xs font-medium backdrop-blur-md border flex items-center gap-1.5 ${
-          isGoogleMapsConfigured
+        <div className={`px-2.5 py-1.5 rounded-lg text-xs font-medium backdrop-blur-md border flex items-center gap-1.5 ${isGoogleMapsConfigured
             ? 'bg-emerald-50/95 text-emerald-800 border-emerald-200'
             : 'bg-amber-50/95 text-amber-900 border-amber-200'
-        }`}>
+          }`}>
           <div className={`w-2 h-2 rounded-full ${isGoogleMapsConfigured ? 'bg-emerald-500' : 'bg-amber-500'}`} />
           <span>
             {isGoogleMapsConfigured
@@ -351,13 +350,12 @@ export const CivicMap: React.FC<CivicMapProps> = ({
         <div className="absolute bottom-4 right-4 z-[1000] bg-white rounded-xl shadow-xl border border-slate-200 p-4 max-w-sm w-full animate-fade-in">
           <div className="flex items-start justify-between gap-2 mb-2">
             <div>
-              <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider ${
-                selectedReport.priorityBand === 'Critical'
+              <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider ${selectedReport.priorityBand === 'Critical'
                   ? 'bg-rose-100 text-rose-800'
                   : selectedReport.priorityBand === 'High'
-                  ? 'bg-amber-100 text-amber-800'
-                  : 'bg-slate-100 text-slate-800'
-              }`}>
+                    ? 'bg-amber-100 text-amber-800'
+                    : 'bg-slate-100 text-slate-800'
+                }`}>
                 {selectedReport.priorityBand} • {selectedReport.priorityScore}
               </span>
               <span className="ml-2 text-xs text-slate-500 font-medium">
@@ -396,13 +394,12 @@ export const CivicMap: React.FC<CivicMapProps> = ({
           )}
 
           <div className="flex items-center justify-between pt-2 border-t border-slate-100">
-            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-              selectedReport.status === 'Resolved'
+            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${selectedReport.status === 'Resolved'
                 ? 'bg-emerald-100 text-emerald-800'
                 : selectedReport.status === 'In Progress'
-                ? 'bg-blue-100 text-blue-800'
-                : 'bg-slate-100 text-slate-700'
-            }`}>
+                  ? 'bg-blue-100 text-blue-800'
+                  : 'bg-slate-100 text-slate-700'
+              }`}>
               {selectedReport.status}
             </span>
 
